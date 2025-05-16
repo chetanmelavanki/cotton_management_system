@@ -15,8 +15,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($purchaser && password_verify($password, $purchaser['password'])) {
         $_SESSION['purchaser_id'] = $purchaser['purchaser_id'];
         $_SESSION['purchaser_name'] = $purchaser['name'];
-
-        // Common session variables for navbar
         $_SESSION['user_id'] = $purchaser['purchaser_id'];
         $_SESSION['user_type'] = 'Purchaser';
 
@@ -39,22 +37,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 
 <div class="container mt-5">
-  <h2 class="text-center">Purchaser Login</h2>
+  <h2 class="text-center mb-4">Purchaser Login</h2>
+
   <?php if (!empty($error)): ?>
     <div class="alert alert-danger text-center"><?= $error ?></div>
   <?php endif; ?>
-  <form method="POST" class="mx-auto" style="max-width: 400px;">
+
+  <form method="POST" class="mx-auto shadow p-4 bg-light" style="max-width: 400px;">
     <div class="mb-3">
-      <label>Email:</label>
-      <input type="email" name="email" class="form-control" required>
+      <label for="email" class="form-label">Email:</label>
+      <input type="email" name="email" id="email" class="form-control" required>
     </div>
-    <div class="mb-3">
-      <label>Password:</label>
-      <input type="password" name="password" class="form-control" required>
+
+    <div class="mb-3 position-relative">
+      <label for="password" class="form-label">Password:</label>
+      <input type="password" name="password" id="password" class="form-control" required>
+      <span class="position-absolute top-50 end-0 translate-middle-y me-3" style="cursor: pointer;" onclick="togglePassword()">👁️</span>
     </div>
+
     <button class="btn btn-success w-100" type="submit">Login</button>
+
+    <div class="text-center mt-3">
+      <a href="forgot_password_purchaser.php">Forgot Password?</a>
+    </div>
   </form>
 </div>
+
+<script>
+function togglePassword() {
+  const field = document.getElementById("password");
+  field.type = field.type === "password" ? "text" : "password";
+}
+</script>
 
 <?php include('includes/footer.php'); ?>
 </body>

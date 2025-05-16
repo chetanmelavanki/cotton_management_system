@@ -52,6 +52,7 @@ CREATE TABLE purchaser (
     password VARCHAR(255) NOT NULL, -- Store hashed password
     registered_date DATE
 );
+ALTER TABLE purchaser ADD COLUMN otp VARCHAR(10) DEFAULT NULL;
 
 -- Agent Table
 CREATE TABLE agent (
